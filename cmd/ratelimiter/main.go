@@ -19,6 +19,8 @@ func main() {
 	switch cfg.Algorithm {
 	case "token_bucket":
 		l = limiter.NewTokenBucket(cfg.Capacity, cfg.RefillRate)
+	case "leaky_bucket":
+		l = limiter.NewLeakyBucket(cfg.Capacity, cfg.RefillRate)
 	default:
 		log.Fatalf("unknown algorithm: %s", cfg.Algorithm)
 	}
