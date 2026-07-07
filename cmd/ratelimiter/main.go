@@ -24,6 +24,8 @@ func main() {
 		l = limiter.NewLeakyBucket(cfg.Capacity, cfg.RefillRate)
 	case "fixed_window":
 		l = limiter.NewFixedWindow(cfg.Capacity, time.Second)
+	case "sliding_window":
+		l = limiter.NewSlidingWindow(cfg.Capacity, time.Second)
 	default:
 		log.Fatalf("unknown algorithm: %s", cfg.Algorithm)
 	}
