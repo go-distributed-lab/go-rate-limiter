@@ -7,6 +7,7 @@ import (
 	"go-rate-limiter/internal/middleware"
 	"log"
 	"net/http"
+	"time"
 )
 
 func main() {
@@ -21,6 +22,8 @@ func main() {
 		l = limiter.NewTokenBucket(cfg.Capacity, cfg.RefillRate)
 	case "leaky_bucket":
 		l = limiter.NewLeakyBucket(cfg.Capacity, cfg.RefillRate)
+	case "fixed_window":
+		l = limiter.NewFixedWindow(cfg.Capacity, time.Second)
 	default:
 		log.Fatalf("unknown algorithm: %s", cfg.Algorithm)
 	}
