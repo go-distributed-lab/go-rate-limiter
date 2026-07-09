@@ -1,10 +1,49 @@
 services:
-  rate-limiter:
+
+  token-bucket:
     build: .
+    profiles: [token-bucket]
     ports:
       - "8080:8080"
     environment:
       ALGORITHM: token_bucket
-      CAPACITY: 10
-      REFILL_RATE: 5
+      CAPACITY: "10"
+      REFILL_RATE: "5"
       PORT: "8080"
+    restart: unless-stopped
+
+  leaky-bucket:
+    build: .
+    profiles: [leaky-bucket]
+    ports:
+      - "8080:8080"
+    environment:
+      ALGORITHM: leaky_bucket
+      CAPACITY: "10"
+      REFILL_RATE: "5"
+      PORT: "8080"
+    restart: unless-stopped
+
+  fixed-window:
+    build: .
+    profiles: [fixed-window]
+    ports:
+      - "8080:8080"
+    environment:
+      ALGORITHM: fixed_window
+      CAPACITY: "10"
+      REFILL_RATE: "5"
+      PORT: "8080"
+    restart: unless-stopped
+
+  sliding-window:
+    build: .
+    profiles: [sliding-window]
+    ports:
+      - "8080:8080"
+    environment:
+      ALGORITHM: sliding_window
+      CAPACITY: "10"
+      REFILL_RATE: "5"
+      PORT: "8080"
+    restart: unless-stopped
